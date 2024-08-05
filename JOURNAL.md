@@ -1,5 +1,9 @@
 # Project Diary
 
+### Week 5 (July 29 - August 4, 2024)
+
+Work continued to develop the library template further. Katsuya Endoh, one of the developers of the library templates used as a model, has been an active contributor. The template now builds a jar, builds javadocs, assembles the release artifact to a zip, creates also a pdex file (zip file with different extension), and it has a release workflow. Further work includes integrating mkdocs builds, for easy documentation development, and automatic release to Github Pages. There are also a few bits to tidy in the template.
+
 ### Week 4 (July 22 - 28, 2024)
 
 After a few weeks swimming in Gradle, this repo has emerged. The approach I'm 
