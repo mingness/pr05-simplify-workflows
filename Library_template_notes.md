@@ -1,31 +1,66 @@
-# Project Context
+# Library Template
 
-## Open Call Description
-
-This project aims to improve the developer experience for libraries, tools, and mode contributors. The current system for submitting contributions and updating the contributions list is cumbersome and error-prone. Your work will automate the process and improve the quality of life for other developers, making Processing contributions more inviting to new contributors.
-
-
-## Open Call Expected Outcomes
-- An improved system for submitting new contributions via a PR template.
-- A simplified workflow for updating the contributions list in Processing and on the processing.org website.
-- Repository templates for libraries using the new Gradle templates.
-- Automation for building and exporting artifacts, including PDEX/PDEZ bundles.
-- CI/CD deployment of the reference to GitHub pages including install links using the new pdez:// and pdex:// protocols.
-- Updates to the library contribution documentation to reflect these changes.
-- Optional: a backend system for keeping track of library downloads within Processing.
+The library template is a Github repo that is a template for creating a new Processing library.
+It provides Gradle tasks for easy building and assembling of release artifacts.
 
 
-## Workflow for contributing to libraries
+## Existing Templates
+There were two existing templates for developing libraries for Processing on 
+Github that were used as initial models:
+- https://github.com/processing/processing-library-template-gradle
+- https://github.com/enkatsu/processing-library-template-gradle
 
-Below is a broad overview of the process of contributing to libraries, tools, and modes, and the existing resources for this. The expected project outcomes are also mapped to the step in the process that it applies to.
+Also notable are these two repositories:
+- https://github.com/hamoid/processing-library-template - used enkatsu's template as a model. used jitpack to resolve Processing
+- https://github.com/jjeongin/creative-machine - library by Jeongin, on of the authors of the processing gradle template
 
-| Step | Current workflow | Expected Outcomes | Notes |
-|------|------------------|-------------------|-------|
-| The idea | | | An invitation on the website? |
-|The information | Information on how to develop a library can be found in the Github wiki documents for processing 4, in three separate pages, and then there is a page for modes. <br><br> https://github.com/benfry/processing4/wiki/Library-Basics <br> https://github.com/benfry/processing4/wiki/Library-Guidelines  <br> https://github.com/benfry/processing4/wiki/Library-Overview  <br> https://github.com/benfry/processing4/wiki/Mode-Overview | <ul><li>Updates to the library contribution documentation to reflect changes.</ul> | Update information, with an eye on intuitive organization, and the needs of our broad audience. Potentially also put on website. |
-| The development | There are a series of templates that have been developed. The older ones are using Eclipse and Ant, newer ones with Intellij and Gradle. In addition to the executable, the developer is required to create a website that holds documentation for the library. <br><br> https://github.com/processing/processing-library-template <br> https://github.com/processing/processing-library-template-gradle <br> https://github.com/processing/processing-templates <br> https://github.com/processing/processing-tool-template <br> https://github.com/processing/processing-android-library-template | <ul><li>Repository templates for libraries using the new Gradle templates. <li>Automation for building and exporting artifacts, including PDEX/PDEZ bundles. <li>CI/CD deployment of the reference to GitHub pages including install links using the new pdez:// and pdex:// protocols.</ul> | Try to make template straightforward to follow by beginner. Don't shy away from learning opportunities; don't patronize the user. <br><br> PDEX bundles allow for the possibility of installing libraries in other ways other than the contributions manager, for example on the library's documentation pages. |
-| The integration - into the Processing environment | The current process is to contact the Processing librarian with a url to your release. <br><br> https://forum.processing.org/one/topic/publishing-contributed-libraries-and-tools | <ul><li>An improved system for submitting new contributions via a PR template. <li>A simplified workflow for updating the contributions list in Processing and on the processing.org website.</ul> | Develop automated pipeline where possible. Reduce workload on Processing librarian. |
+Some specific differences between the two model templates:
 
+- https://github.com/processing/processing-library-template-gradle
+  - The developer interaction for configuring the build is to fill out the 
+    /resources/build.properties file with all build and release parameters
+  - It resolves Processing by pointing to the locally installed jar files
+  - The build.gradle file has 141 lines; processing-library.gradle 159 lines
+  - It provides gradle tasks for releasing the library
+  - This template provides fully documented example code, and an example
+- https://github.com/enkatsu/processing-library-template-gradle
+  - The developer interaction for configuring the build is to add dependencies
+    to the build.gradle
+  - It resolves Processing from Maven, using an unofficial version, 3.3.7
+  - The build.gradle file has 56 lines
+  - It does not provide scripts for releasing the library
+  - This template provides example code and example, but it is not commented 
+    extensively
 
+Here are some thoughts, related to each bullet point above:
 
+- Which way of interacting with a template will be most intuitive, adding 
+parameters to a text file that is then parsed, or editing directly into files? 
+There is no clear winner for me at the moment. Best to let the users tell us - do 
+user testing. Leave both options available for the duration of the grant, and 
+solicit interviews with library developers.
 
+- Stef suggested that the best way to resolve Processing at this time is to use
+jitpack to compile a Github repository. There is an unofficial repository for
+resolving Processing4 with jitpack at https://github.com/micycle1/processing-core-4/
+
+- The build.gradle + processing-library.gradle files of the processing template 
+are large, and aren't easy to digest on first look. That's because they are not 
+designed to be edited. Is this a missed opportunity for gaining familiarity with 
+gradle? enkatsu's template is simple, invites and requires editing to configure
+to your library. As mentioned in the first comment, I'm not sure which user 
+interaction is most intuitive, but will develop one with a simpler gradle file for
+direct editing.
+
+- It is desired to provide scripts for releasing the library. Will adopt the gradle 
+tasks for releasing from processing template.
+
+- It is desired for the repository be clear and intuitive to even a beginner at 
+developing libraries. Ideally, the template should run and build and release, 
+without input from the user. I want to extend the example build to require 
+dependencies, to help show how to add them.
+
+Additionally, Stef suggested that we should move to Kotlin, as it is the current
+default; the gradle files in both repositories described above use Groovy.
+It's clear that both templates provide great value, and there is a benefit to
+combining the two. 
