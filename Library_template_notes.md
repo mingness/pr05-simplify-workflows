@@ -3,6 +3,12 @@
 The library template is a Github repo that is a template for creating a new Processing library.
 It provides Gradle tasks for easy building and assembling of release artifacts.
 
+## Design principles
+1. Make it easy to use for all users, from beginner to advanced skillsets. This means, keep it simple, and explain clearly, don't assume preexisting knowledge.
+
+2. Adopt current standards, such as Kotlin as default Gradle language
+
+3. Automate
 
 ## Existing Templates
 There were two existing templates for developing libraries for Processing on 
