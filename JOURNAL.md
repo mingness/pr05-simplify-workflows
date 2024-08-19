@@ -1,5 +1,18 @@
 # Project Diary
 
+### Week 6-7 (August 5 - 18, 2024)
+
+We started planning and designing the [adding contribution workflow](Adding_contribution_workflow_notes.md). The next steps will be to create a new test repo, with a newly configured database file. This will be the
+source of truth, from which the files needed by the contributions manager
+and website can be built. The idea is then in the future, these consumers
+could also be refactored to interact with the database file directly. Changes to this database file will be made via a pull request. To make
+this setup friendly to users, we would like to format the database file as
+a list of yaml objects (so that it is human readable), and initiate the
+pull request with an issue form.
+
+I've also worked on adding support for MkDocs in the library template repository. There is a starter website, and a Github workflow that deploys the website as a Github Pages project website. Feedback from Stef and Raphaël are to provide a reduced complexity how to, and a separate location for more detailed information, and to take out any requirement for installing Python.
+
+
 ### Week 5 (July 29 - August 4, 2024)
 
 Work continued to develop the library template further. Katsuya Endoh, one of the developers of the library templates used as a model, has been an active contributor. The template now builds a jar, builds javadocs, assembles the release artifact to a zip, creates also a pdex file (zip file with different extension), and it has a release workflow. Further work includes integrating mkdocs builds, for easy documentation development, and automatic release to Github Pages. There are also a few bits to tidy in the template.
