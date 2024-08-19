@@ -75,12 +75,29 @@ As you might notice, the `contribs.txt` file has version information, while the 
 ## Possible changes
 1. The library developer creates a PR in the `processing-contributions` repo. The change is to add a line to a new database file.
 2. There is a new database file in `processing-contributions`, that lists the information in `sources.conf`, `broken.conf`, and `skipped.conf`, in tabular form. This will put all the data in one place, and make hopefully more transparent to humans. The columns could be, `id`, `name`, `version`, `prettyVersion`, `minRevision`, `maxRevision`, `is_broken`, `is_missing`, `authors`, `url`, `download`, `props`, `type`, `date_added`, `last_updated`, `categories`, `sentence`, `paragraph`. The database could include a line for every version of a library - it allows for properties to change for a given version.
-3. A script runs regularly to check if the properties file (*.txt) is changed for a library. If so, a new PR is created to edit the line in the database file.
+3. A script runs regularly to check if the properties file (*.txt) is changed for a library. If so, the change is added automatically to the database file.
 
 
 ## Questions
 1. Does the contributions manager need the `id` of the library, from the `processing-contributions` repo? If not, then the `id` can be kept internal to the database, and doesn't need to be explicit.
+   - Contributions are parsed in https://github.com/benfry/processing4/blob/6a2cf8cda35552c62a1a794bb1e20f43fe8ffcda/app/src/processing/app/contrib/AvailableContribution.java#L39. The `id` is not retrieved.
+   - Downloaded contributions properties file is read in, and the `id` from that is read in. But it's not clear if it's used. https://github.com/benfry/processing4/blob/6a2cf8cda35552c62a1a794bb1e20f43fe8ffcda/app/src/processing/app/contrib/LocalContribution.java#L67
 2. Is there any information that the contribution manager not use from `contribs.txt`?
+   - in addition to the `id`, the `categories` is not parsed for a given contribution in the contributions manager. The categories is processed before it is added to the `contribs.txt` file. 
 3. Can the website accept the version information? If so, then the `contribs.txt` file can be synchronized with the json files, allowing easy migration to a new source of information in the future. Eventually, the website might want to show the version information. 
+   - should not be a problem to add more key-value pairs.
 4. How often does the `update-contributions.js` script get run for the website?
+   - seems last change to the `content/contributions` folder in the `processing-website` repo was a year ago.
 5. What is the P5 Robot, that changes some of the *.json files in the `sources` folder, in the contributions repo?
+   - from Stef, this is a Github action that runs build_contribs.py, and check-changes.sh. https://github.com/processing/processing-contributions/actions/runs/10363261300/workflow
+6. Is there a way to input a new line, and check the data in that line, using a script, or gui?
+   - The suggested way now is to have the new contributor create a new issue, filling out the issue form, which will then automatically create the pull request.
+7. Do we want to store version information, and dates updated?
+   - This information might be interesting to users, but we won't need to store version specific information - the library only needs to be listed once, with most current version, plus, a list of previous versions.
+
+## Next steps
+
+1. Create a new repo for testing the ideas listed here. The `processing-contributions` repo does not allow forking.
+2. Reformat the information in `sources.conf`, `broken.conf`, and `skipped.conf` into a new database format. For best readability, the file will be a list of yaml objects. Tabular data quickly leaves the header far away from the bottom of the table, and a separate line for each item makes it clear what has changed, when a record is edited.
+3. Create issue form for new library contributors to fill, which then automatically creates the pull request that changes the database file.
+4. Create scripts to create `pde/contribs.txt`, and `content/contributions/*.json` files. Kotlin? Typescript?
