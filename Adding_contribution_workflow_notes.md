@@ -91,10 +91,13 @@ As you might notice, the `contribs.txt` file has version information, while the 
 5. What is the P5 Robot, that changes some of the *.json files in the `sources` folder, in the contributions repo?
    - from Stef, this is a Github action that runs build_contribs.py, and check-changes.sh. https://github.com/processing/processing-contributions/actions/runs/10363261300/workflow
 6. Is there a way to input a new line, and check the data in that line, using a script, or gui?
+   - The suggested way now is to have the new contributor create a new issue, filling out the issue form, which will then automatically create the pull request.
 7. Do we want to store version information, and dates updated?
+   - This information might be interesting to users, but we won't need to store version specific information - the library only needs to be listed once, with most current version, plus, a list of previous versions.
 
 ## Next steps
 
 1. Create a new repo for testing the ideas listed here. The `processing-contributions` repo does not allow forking.
-2. Reformat the information in `sources.conf`, `broken.conf`, and `skipped.conf` into a new tabular format.
-3. Create scripts to create `pde/contribs.txt`, and `content/contributions/*.json` files. 
+2. Reformat the information in `sources.conf`, `broken.conf`, and `skipped.conf` into a new database format. For best readability, the file will be a list of yaml objects. Tabular data quickly leaves the header far away from the bottom of the table, and a separate line for each item makes it clear what has changed, when a record is edited.
+3. Create issue form for new library contributors to fill, which then automatically creates the pull request that changes the database file.
+4. Create scripts to create `pde/contribs.txt`, and `content/contributions/*.json` files. Kotlin? Typescript?
