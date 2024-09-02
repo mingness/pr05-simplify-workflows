@@ -1,5 +1,24 @@
 # Project Diary
 
+### Week 8-9 (August 19 - September 1, 2024)
+
+Work continued to finalize the library template.
+The `build.gradle.kts` was reviewed in terms of readability, and the comments for beginners was greatly improved.
+Additionally, MkDocs was used to more fully document the library.
+
+A couple of issues were investigated, but we decided not to pursue them:
+1. special scripts to clean the repository for use as a template. Some repositories have special scripts to remove 
+files, such as the readme, when the repository is used as a template. Adding this would create extra burden of maintenance, and the repository is quite light as it is.
+2. returning the version of the library as a library method, and synchronizing with the value of the version in gradle, and in the `library.properties` file. To do this, either the user must maintain the version manually, or it 
+could be synchronized via code. This was done previously by inputting this value into the `library.properties` file,
+and propagating that value into the code with a search and replace script. Another solution could be to read in
+a properties file and return the value; this would require the properties file to be part of the library. Other
+ways were explored, to see if the Gradle file could be made aware of the Java method. In the end, it was decided
+not to pursue this further, since the need for the version to be reported by the library would only be in cases of
+debugging an error, so hopefully very rarely. We are also aware that any file or structure included in the template
+might be regarded as required, so we only want to offer what is required in the template.
+
+
 ### Week 6-7 (August 5 - 18, 2024)
 
 We started planning and designing the [adding contribution workflow](Adding_contribution_workflow_notes.md). The next steps will be to create a new test repo, with a newly configured database file. This will be the
