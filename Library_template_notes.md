@@ -70,3 +70,15 @@ Additionally, Stef suggested that we should move to Kotlin, as it is the current
 default; the gradle files in both repositories described above use Groovy.
 It's clear that both templates provide great value, and there is a benefit to
 combining the two. 
+
+
+----
+
+## Future-facing questions
+
+1. What is the `paragraph` used for? I could not find it used anywhere.
+I noticed the Sound library from Processing doesn't define a `paragraph` in 
+its `library.properties` file. Are there plans to use this field in the future?
+2. Is there an easier way of dealing with max and min revisions? Right now the 
+default values in the `library.properties` file are `0`. This is replaced with `228` if it is a "broken" library, which is a manual designation. Is there
+a way to programmatically determine the revision range?
