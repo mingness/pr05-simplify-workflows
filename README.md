@@ -42,16 +42,18 @@ We will use an iterative approach to making improvements to this process. First 
 - Implement draft version of library template
 
 ## August
-- Release library template for testing
+- Continue work on draft version of library template
 - Conduct user interviews on library template (ongoing)
 - Understand context of adding contributions
-- Implement draft version of proposal for automation
 
 ## September
+- Continue work on draft version of library template
+- Release library template for testing
+- Implement draft version of proposal for automating adding contributions
 - Document work on automation process, and release
-- Conduct user interviews on draft version of automation process for adding contributions
-- Implement tools and modes templates
+- ~~Implement tools and modes templates~~
 
 ## October
+- Conduct user interviews on draft version of automation process for adding contributions
 - Iterate on library template and automation process, as necessary, from user feedback
 - Incorporate all existing content found on github into website
