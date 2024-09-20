@@ -96,10 +96,13 @@ which, in each row, is an id number and the url to the properties file (*.txt) f
 a line to a new database file.
 2. There is a new database file in `processing-contributions`, that lists the information in 
 `sources.conf`, `broken.conf`, and `skipped.conf`. This will put all the data in one place, and make 
-hopefully more transparent to humans. The fields could be, `id`, `name`, `version`, `prettyVersion`, 
-`minRevision`, `maxRevision`, `is_broken`, `is_missing`, `authors`, `url`, `download`, `props`, `type`, 
-`date_added`, `last_updated`, `categories`, `sentence`, `paragraph`. The database could include a 
-line for every version of a library - it allows for properties to change for a given version.
+hopefully more transparent to humans. The fields could be, all the fields in `library.properties`.
+Also, `is_broken`, `is_missing`, `download`, `props`, `type`, `date_added`, `last_updated`. 
+For best readability, the data 
+will be a list of yaml objects. Tabular data quickly leaves the header far away from the bottom of 
+the table, and a separate line for each item makes it clear what has changed, when a record is edited. 
+The database could include a line for every version of a library - it allows for properties to change 
+for a given version.
 3. A script runs regularly to check if the properties file (*.txt) is changed for a library. If so, 
 the change is added automatically to the database file.
 
@@ -133,15 +136,23 @@ the website might want to show the version information.
 
 1. Create a new repo for testing the ideas listed here, called `processing-contributions-new`. 
 The `processing-contributions` repo does not allow forking.
-2. Create new database file, called `contributions.yaml`. The source of information will be from 
-the `contribs.txt` and `sources/*.json` files. The objective is to keep the output files the same 
-as they are currently. For best readability, the data will be a list of yaml objects. Tabular data 
-quickly leaves the header far away from the bottom of the table, and a separate line for each item 
-makes it clear what has changed, when a record is edited. 
+2. Create new database file, called `contributions.yaml`. The objective is to keep the output 
+files the same as they are currently. In this first implementation, the source of information 
+will be from the `contribs.txt` and `sources/*.json` files. This means the filtering of deprecated 
+or skipped contributions has already happened, and these contributions will be missing from the 
+database file. This first version will just have fields existing already in the output files.
 3. Create scripts to create `pde/contribs.txt`, and `content/contributions/*.json` files. Kotlin + 
-gradle? I'm using Python for now, for easy of use.
+gradle is the goal, but I'm using Python for now, for ease of use.
 4. Create issue form for new library contributors to fill, which then automatically creates the pull 
 request that changes the database file.
+5. Test output files with website and contribution manager.
+6. Expand database file to include fields related to filtering, like `is_deprecated`, `is_skipped`,
+`is_broken`. These fields will replicate the information in the `source.conf`, `skipped.conf`, and
+`broken.conf`. The database will then have more contributions listed. Modify scripts to do the filtering.
+7. Rewrite scripts in Kotlin. Process data such that required fields are validated, but we also allow
+other fields.
+8. Write script for checking online property txt files for each contribution. If there is an update,
+edit the database file, and recreate contribs.txt and json files.
 
 
 ## Design of database file
@@ -167,5 +178,3 @@ left-padded with zeros. Store the `id` in the database as a number, but convert 
 
 2. Understand the rules for inclusion of a library id in the `skipped.conf` and `broken.conf` and compare 
 with current state of props url.
-3. Compile database file with potentially new content, and test result
-with website and contribution manager.
