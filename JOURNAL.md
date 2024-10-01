@@ -1,5 +1,21 @@
 # Project Diary
 
+### Week 12-13 (September 16 - 30, 2024)
+
+I created a script for creating source json files from the yaml database file. A
+todo is to test these output files on the the contribution manager, and a local
+copy of the website, if possible.
+
+I should also mention, that in this process, a bug in how the properties files
+were parsed with the original script was discovered - there was one case where a 
+link on a following line was parsed as a key-value pair, because the url had an 
+equals sign.
+
+Work was also completed on a workflow that starts with an issue form, and ends
+with a pull request being created, for the new contribution. This just needs to
+be reviewed by Stef.
+
+
 ### Week 10-11 (September 2 - 15, 2024)
 
 Work on the guide on how to use the library template was completed. 
