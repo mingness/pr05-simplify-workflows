@@ -134,24 +134,24 @@ the website might want to show the version information.
 
 ## Next steps
 
-1. Create a new repo for testing the ideas listed here, called `processing-contributions-new`. 
+- [x] Create a new repo for testing the ideas listed here, called `processing-contributions-new`. 
 The `processing-contributions` repo does not allow forking.
-2. Create new database file, called `contributions.yaml`. The objective is to keep the output 
+- [x] Create new database file, called `contributions.yaml`. The objective is to keep the output 
 files the same as they are currently. In this first implementation, the source of information 
 will be from the `contribs.txt` and `sources/*.json` files. This means the filtering of deprecated 
 or skipped contributions has already happened, and these contributions will be missing from the 
 database file. This first version will just have fields existing already in the output files.
-3. Create scripts to create `pde/contribs.txt`, and `content/contributions/*.json` files. Kotlin + 
+- [x] Create scripts to create `pde/contribs.txt`, and `content/contributions/*.json` files. Kotlin + 
 gradle is the goal, but I'm using Python for now, for ease of use.
-4. Create issue form for new library contributors to fill, which then automatically creates the pull 
+- [x] Create issue form for new library contributors to fill, which then automatically creates the pull 
 request that changes the database file.
-5. Test output files with website and contribution manager.
-6. Expand database file to include fields related to filtering, like `is_deprecated`, `is_skipped`,
+- [ ] Test output files with website and contribution manager.
+- [ ] Expand database file to include fields related to filtering, like `is_deprecated`, `is_skipped`,
 `is_broken`. These fields will replicate the information in the `source.conf`, `skipped.conf`, and
 `broken.conf`. The database will then have more contributions listed. Modify scripts to do the filtering.
-7. Rewrite scripts in Kotlin. Process data such that required fields are validated, but we also allow
+- [ ] Rewrite scripts in Kotlin. Process data such that required fields are validated, but we also allow
 other fields.
-8. Write script for checking online property txt files for each contribution. If there is an update,
+- [ ] Write script for checking online property txt files for each contribution. If there is an update,
 edit the database file, and recreate contribs.txt and json files.
 
 
