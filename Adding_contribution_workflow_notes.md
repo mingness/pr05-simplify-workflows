@@ -145,14 +145,15 @@ database file. This first version will just have fields existing already in the 
 gradle is the goal, but I'm using Python for now, for ease of use.
 - [x] Create issue form for new library contributors to fill, which then automatically creates the pull 
 request that changes the database file.
-- [ ] Test output files with website and contribution manager.
-- [ ] Expand database file to include fields related to filtering, like `is_deprecated`, `is_skipped`,
-`is_broken`. These fields will replicate the information in the `source.conf`, `skipped.conf`, and
-`broken.conf`. The database will then have more contributions listed. Modify scripts to do the filtering.
-- [ ] Rewrite scripts in Kotlin. Process data such that required fields are validated, but we also allow
+- [x] Test output files with website and contribution manager.
+- [x] Expand database file to include fields related to filtering. These fields will replicate the 
+information in the `source.conf`, `skipped.conf`, and `broken.conf`. The database will then have more 
+contributions listed. Modify scripts to do the filtering.
+- [x] Write script for checking online property txt files for each contribution. 
+- [ ] Create workflow such that, if there is an update, edit the database file, and recreate contribs.txt 
+and json files.
+- [ ] Rewrite scripts in Kotlin. Process data such that required fields are validated, but we also allow 
 other fields.
-- [ ] Write script for checking online property txt files for each contribution. If there is an update,
-edit the database file, and recreate contribs.txt and json files.
 
 
 ## Design of database file
@@ -160,15 +161,24 @@ edit the database file, and recreate contribs.txt and json files.
 * By default, all information about a contribution will be included. This includes all the fields in 
 the json files, plus `version` and `prettyVersion`; alternatively described, it is all the fields in 
 the `contribs.txt` plus the `props` url. 
-* The fields from the `library.properties` file are: `id`, `name`, `version`, `prettyVersion`, 
-`minRevision`, `maxRevision`, `authors`, `url`, `download`, `props`, `type`, `categories`, `sentence`, `paragraph`. 
+* The fields from the `library.properties` file are: `name`, `version`, `prettyVersion`, 
+`minRevision`, `maxRevision`, `authors`, `url`, `type`, `categories`, `sentence`, `paragraph`. These
+fields will also be in the database, and will be the value in the library property text file. If
+any of these values should be overridden, please read below about the `override` field.
+* Other relevant fields represented in the output files `contribs.txt` and the source json files are
+`id`, , `download`, `props`. These will be in the database, but `props` will be renamed to `source`
 * The `id` in all existing files is a 3-character string representation of a number, that is 
 left-padded with zeros. Store the `id` in the database as a number, but convert to a string when output.
 * Other fields we'd like to include are [WIP]
-   * `is_deprecated` - These are libraries that are commented out of `source.conf`
-   * `is_skipped` - These are libraries listed in `skipped.conf`
-   * `is_broken` - These are libraries listed in `broken.conf`
-   * `error` - Explains why a library is deprecated, or skipped
+   * `status` - Possible values are 
+      * `DEPRECATED` - Libraries that seem to be permanently down, or have been deprecated. 
+      These are libraries that are commented out of `source.conf`.
+      * `BROKEN` - libraries who's properties file cannot be retrieved, but we will still check. 
+      These are libraries listed in `skipped.conf`
+      * `VALID` - libraries that are valid and available
+   * `override` - This is an object, where any component field values will replace the existing field values. For example, libraries in the `broken.conf` file are outdated, and we want to cap the
+   `maxRevision` to `228`. This cap can be applied by setting `override` to {`maxRevision`: `228`}
+   * `log` - Any notes of explanation, such as why a library was labeled `BROKEN`
    * `previous_versions` - a list of previous `prettyVersion` values 
    * `date_added` - Date library was added to contributions. This is a future facing field
    * `last_updated` - Date library was last updated in the repo. This is a future facing field
