@@ -1,6 +1,69 @@
 # Project Diary
 
-### Week 12-13 (September 16 - 30, 2024)
+### Week 14-15 (September 30 - October 13, 2024)
+
+Feedback on the issue-to-PR workflow from Stef, was to use third party actions,
+so as to simplify the workflow. Also, these actions will contain their own
+documentation, which simplifies our need to document. There is no action that
+does precisely what we want to do, which is make a robust workflow that can be
+run multiple times, that creates a new branch with changes, linked to an issue 
+started by the contributor, and creates a pull request to merge that branch into
+`main`. But each component of this can be run with github cli commands, and
+github marketplace actions. To make it robust to repeated runs, the workflow needs
+to delete the previous branch, before creating it anew. This has been implemented.
+
+Also, the issue form was missing the contribution type as an input - previously, 
+the librarian would have added the new contribution to `sources.conf`, where in
+the heading, was the contribution type (possible values are `library`, `examples`,
+`tool`, or `mode`). This was added in.
+
+If the processing of retrieving the properties text file and parsing it fails,
+a comment will be added to the issue, mentioning the error in human language, except
+for the validation step - the full error message will be return, so that the
+contributor will know where the error lies.
+
+For this workflow, and for the creation of the database file, there were a number 
+of additional data processing steps that were considered, to create an accurate 
+database file.
+
+* Some library properties files use `authorList` instead of `authors`, or
+`category` instead of `categories`
+* The default category for libraries is `Other`, but for other types, there is no
+value for `categories`
+* Some values for `categories` deviate from the canonical list, or are not accurate,
+and the librarian manually gave the library a new category label. These override
+the values in the properties file, and are defined in the `override` field in the database.
+* If a library was commented out of the `sources.conf`, this library should have
+a status of `DEPRECATED`. If a library was listed in `skipped.conf`, this library
+should have a status of `BROKEN`. If a library was listed in `broken.conf`, this
+library will have in its `override` field, an entry for `maxRevision`, with value `228`.
+* The `download` value might need to be constructed from the properties url.
+
+The output files were tested with a locally run Processing website, and the local
+Processing. To test the website, the outputted source json files were copied into 
+the website repo, and the website run locally. For testing the contribution manager, 
+the outputted `contribs.txt` file was put in my processing folder, which on linux, 
+was ~/.var/app/org.processing.processingide/config/processing/contribs.txt.
+Then, the internet needs to be off, since Processing, upon start up, will hit a 
+download url, https://download.processing.org/contribs, rewrite the `contribs.txt` file, 
+and then read them into memory. If the internet is not available, it will default
+to the local file.
+
+Remaining discrepancies:
+These libraries are labeled as broken after the processing, but are not.
+37, Patchy - doesn't have prettyVersion
+96, Applet Maker & Signer - min/maxRevision are not valid
+149, Kinect4WinSDK - required headers user-agent and accept
+185, Ptmx - required headers user-agent and accept
+236, VLCJVideo - required headers user-agent and accept
+169, Python Mode for Processing 3 - needed to use temporary url
+274, Python Mode for Processing 4 - needed to use temporary url
+also a few example contributions have the `categories` field set as Book; all other
+non-library contributions have the `categories` field empty. This was manually
+conditioned in the output. The output of these scripts now mimic the originals well.
+
+
+### Week 12-13 (September 16 - 29, 2024)
 
 I created a script for creating source json files from the yaml database file. A
 todo is to test these output files on the the contribution manager, and a local
