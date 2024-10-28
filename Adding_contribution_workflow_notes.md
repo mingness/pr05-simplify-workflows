@@ -150,7 +150,7 @@ request that changes the database file.
 information in the `source.conf`, `skipped.conf`, and `broken.conf`. The database will then have more 
 contributions listed. Modify scripts to do the filtering.
 - [x] Write script for checking online property txt files for each contribution. 
-- [ ] Create workflow such that, if there is an update, edit the database file, and recreate contribs.txt 
+- [x] Create workflow such that, if there is an update, edit the database file, and recreate contribs.txt 
 and json files.
 - [ ] Rewrite scripts in Kotlin. Process data such that required fields are validated, but we also allow 
 other fields.
@@ -169,22 +169,35 @@ any of these values should be overridden, please read below about the `override`
 `id`, , `download`, `props`. These will be in the database, but `props` will be renamed to `source`
 * The `id` in all existing files is a 3-character string representation of a number, that is 
 left-padded with zeros. Store the `id` in the database as a number, but convert to a string when output.
-* Other fields we'd like to include are [WIP]
+* Other fields included are
    * `status` - Possible values are 
       * `DEPRECATED` - Libraries that seem to be permanently down, or have been deprecated. 
-      These are libraries that are commented out of `source.conf`.
+      These are libraries that are commented out of `source.conf`. This is manually set.
       * `BROKEN` - libraries who's properties file cannot be retrieved, but we will still check. 
       These are libraries listed in `skipped.conf`
       * `VALID` - libraries that are valid and available
-   * `override` - This is an object, where any component field values will replace the existing field values. For example, libraries in the `broken.conf` file are outdated, and we want to cap the
+   * `override` - This is an object, where any component field values will replace the existing field values. 
+   For example, libraries in the `broken.conf` file are outdated, and we want to cap the
    `maxRevision` to `228`. This cap can be applied by setting `override` to {`maxRevision`: `228`}
    * `log` - Any notes of explanation, such as why a library was labeled `BROKEN`
+* Other fields to be included are
    * `previous_versions` - a list of previous `prettyVersion` values 
    * `date_added` - Date library was added to contributions. This is a future facing field
    * `last_updated` - Date library was last updated in the repo. This is a future facing field
 
+## Migration plan
+
+1. Copy mingness/processing-contributions-new to processing account. Do not transfer. Do not keep history.
+2. Set up update workflow that updates daily the database file and creates `pde/contribs.txt` and the 
+`source` json files, and automerges into the repository. Direct commits to main.
+3. Let the repository update these output files for a trial period of a week? a month? Compare files against 
+the `processing/processing-contributions` repo.
+4. When we are confident the repository is working as expected, insert into workflow for contribution manager. 
+Start up again for website?
+
 
 ## Future-facing questions and tasks
 
-2. Understand the rules for inclusion of a library id in the `skipped.conf` and `broken.conf` and compare 
-with current state of props url.
+1. Understand the rules for inclusion of a library id in the `skipped.conf` and `broken.conf` and compare 
+with current state of source url.
+2. Process archival information, and create additional fields, `previous_versions`, `date_added`, and `last_updated`.

@@ -1,5 +1,34 @@
 # Project Diary
 
+### Week 16-17 (October 14 - 28, 2024)
+
+After slaying the data dragon, turned to preparing my presentation.
+
+Also migrated the `processing-library-template` to the processing account. 
+Did this live with Raphaël. 
+The `processing/processing-library-template` was renamed
+`processing/processing-library-template-ant`, and 
+`mingness/processing-library-template` was transferred to the `processing`
+account. 
+We updated the contributors section, I searched and revised any url that
+had been renamed.
+Raphaël also converted the issue template to an issue form, and added bug 
+and feature issue forms.
+
+The `processing-contributions-new` will also be migrated, by creating a new
+repository in the `processing` account, and copying the repository files over.
+An update workflow was prepared, and will be added to the new repository. The 
+suggestion is to let the new repo and it's workflows run for a trial period
+before integrating into the existing workflow.
+
+There are also a number of documentation outputs to create:
+* library template medium article, explaining the project, and inviting use
+* medium article about the experience
+* final report
+* tutorial for the website
+* post messages in forums about the project
+
+
 ### Week 14-15 (September 30 - October 13, 2024)
 
 Feedback on the issue-to-PR workflow from Stef, was to use third party actions,

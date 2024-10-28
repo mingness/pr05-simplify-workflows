@@ -74,6 +74,18 @@ combining the two.
 
 ----
 
+## Migration plan
+
+1. existing processing/processing-library-template repo could be renamed processing/processing-library-template-ant
+2. mingness/processing-library-template be moved to processing/processing-library-template
+3. update url in documentation
+4. review README, and contributions section
+5. flesh out issue templates, convert to yaml, add also bug and feature request forms.
+6. remove issue forms from template?
+
+There is no fear of name retirement. Name retirement can happen if a popular repo changes account; the name in the original account will be retired.
+
+
 ## Future-facing questions
 
 1. What is the `paragraph` used for? I could not find it used anywhere.
@@ -82,3 +94,4 @@ its `library.properties` file. Are there plans to use this field in the future?
 2. Is there an easier way of dealing with max and min revisions? Right now the 
 default values in the `library.properties` file are `0`. This is replaced with `228` if it is a "broken" library, which is a manual designation. Is there
 a way to programmatically determine the revision range?
+
