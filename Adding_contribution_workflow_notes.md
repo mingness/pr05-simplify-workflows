@@ -110,7 +110,9 @@ the change is added automatically to the database file.
 ## Questions
 1. Does the contributions manager need the `id` of the library, from the `processing-contributions` repo? 
 If not, then the `id` can be kept internal to the database, and doesn't need to be explicit.
-   - Contributions are parsed in https://github.com/benfry/processing4/blob/6a2cf8cda35552c62a1a794bb1e20f43fe8ffcda/app/src/processing/app/contrib/AvailableContribution.java#L39. The `id` is not retrieved.
+   - Contributions are parsed in 
+   https://github.com/benfry/processing4/blob/6a2cf8cda35552c62a1a794bb1e20f43fe8ffcda/app/src/processing/app/contrib/AvailableContribution.java#L39. 
+   The `id` is not retrieved.
    - Downloaded contributions properties file is read in, and the `id` from that is read in. But it's not clear if it's used. 
    https://github.com/benfry/processing4/blob/6a2cf8cda35552c62a1a794bb1e20f43fe8ffcda/app/src/processing/app/contrib/LocalContribution.java#L67
 2. Is there any information that the contribution manager not use from `contribs.txt`?
@@ -123,7 +125,8 @@ the website might want to show the version information.
 4. How often does the `update-contributions.js` script get run for the website?
    - seems last change to the `content/contributions` folder in the `processing-website` repo was a year ago.
 5. What is the P5 Robot, that changes some of the *.json files in the `sources` folder, in the contributions repo?
-   - from Stef, this is a Github action that runs build_contribs.py, and check-changes.sh. https://github.com/processing/processing-contributions/actions/runs/10363261300/workflow
+   - from Stef, this is a Github action that runs build_contribs.py, and check-changes.sh. 
+   https://github.com/processing/processing-contributions/actions/runs/10363261300/workflow
 6. Is there a way to input a new line, and check the data in that line, using a script, or gui?
    - The suggested way now is to have the new contributor create a new issue, filling out the issue 
    form, which will then automatically create the pull request.
@@ -187,13 +190,15 @@ left-padded with zeros. Store the `id` in the database as a number, but convert 
 
 ## Migration plan
 
-1. Copy mingness/processing-contributions-new to processing account. Do not transfer. Do not keep history.
-2. Set up update workflow that updates daily the database file and creates `pde/contribs.txt` and the 
-`source` json files, and automerges into the repository. Direct commits to main.
-3. Let the repository update these output files for a trial period of a week? a month? Compare files against 
-the `processing/processing-contributions` repo.
-4. When we are confident the repository is working as expected, insert into workflow for contribution manager. 
-Start up again for website?
+- [x] rename `processing/processing-contributions` to `processing/processing-contributions-legacy`.
+- [ ] Copy `mingness/processing-contributions-new` to `processing` account as `processing/processing-contributions`. 
+Do not transfer. Do not keep history. Do not include the output files.
+- [ ] Set up update workflow that updates daily the database file, and automerges into the repository. 
+Direct commits to main. Also creates `pde/contribs.txt` and the  `source` json files as workflow artifacts.
+- [ ] Let the repository update these output files for a trial period of a week? a 
+month? Compare files against the `processing/processing-contributions` repo.
+- [ ] When we are confident the repository is working as expected, insert into workflow for 
+contribution manager. Start up again for website?
 
 
 ## Future-facing questions and tasks
