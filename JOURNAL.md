@@ -1,6 +1,6 @@
 # Project Diary
 
-### Week 16-17 (October 14 - 28, 2024)
+### Week 16-17 (October 14 - 27, 2024)
 
 After slaying the data dragon, turned to preparing my presentation.
 

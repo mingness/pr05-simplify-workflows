@@ -70,7 +70,8 @@ in the `content/contributions` folder do not.
 1. The library developer will email the Processing librarian, with the url of the release artifacts.
 2. The librarian will feedback on any recommendations for changes to the library developer.
 3. The librarian adds the library manually to `sources.conf`. This file lists the categories, under 
-which, in each row, is an id number and the url to the properties file (*.txt) file for the applicable contribution.
+which, in each row, is an id number and the url to the properties file (*.txt) file for the applicable 
+contribution. These contributions override the categories listed in the properties file.
 4. The librarian then runs some scripts to add the library into necessary locations.
     1. https://github.com/processing/processing-contributions/blob/master/scripts/build_contribs.py 
     is run as github action, daily. This generates `pde/contribs.txt` file - used by contributions 
@@ -161,18 +162,15 @@ other fields.
 
 ## Design of database file
 * The file will be named `contributions.yaml`
-* By default, all information about a contribution will be included. This includes all the fields in 
-the json files, plus `version` and `prettyVersion`; alternatively described, it is all the fields in 
-the `contribs.txt` plus the `props` url. 
-* The fields from the `library.properties` file are: `name`, `version`, `prettyVersion`, 
-`minRevision`, `maxRevision`, `authors`, `url`, `type`, `categories`, `sentence`, `paragraph`. These
-fields will also be in the database, and will be the value in the library property text file. If
-any of these values should be overridden, please read below about the `override` field.
-* Other relevant fields represented in the output files `contribs.txt` and the source json files are
-`id`, , `download`, `props`. These will be in the database, but `props` will be renamed to `source`
-* The `id` in all existing files is a 3-character string representation of a number, that is 
-left-padded with zeros. Store the `id` in the database as a number, but convert to a string when output.
-* Other fields included are
+* All fields from the properties file will be included directly, except for the categories, which will
+be parsed into a list. 
+The fields from the `library.properties` file are: `name`, `version`, `prettyVersion`, 
+`minRevision`, `maxRevision`, `authors`, `url`, `type`, `categories`, `sentence`, `paragraph`. 
+* Other relevant fields that are represented in the output files are
+   * `id` - a unique integer identifier. This is also used in Processing.
+   * `download`- the url for the zip file, that contains the library
+   * `source` - the url that links to the properties file, from the published library.
+* Newly introduced fields are
    * `status` - Possible values are 
       * `DEPRECATED` - Libraries that seem to be permanently down, or have been deprecated. 
       These are libraries that are commented out of `source.conf`. This is manually set.
@@ -184,19 +182,23 @@ left-padded with zeros. Store the `id` in the database as a number, but convert 
    `maxRevision` to `228`. This cap can be applied by setting `override` to {`maxRevision`: `228`}
    * `log` - Any notes of explanation, such as why a library was labeled `BROKEN`
 * Other fields to be included are
-   * `previous_versions` - a list of previous `prettyVersion` values 
-   * `date_added` - Date library was added to contributions. This is a future facing field
-   * `last_updated` - Date library was last updated in the repo. This is a future facing field
+   * `previous_versions` - a list of previous `prettyVersion` values. This is a future facing field.
+   * `date_added` - Date library was added to contributions. This will be added whenever a new library is
+   added. To have complete data for this field will require some detective work into the archives.
+   * `last_updated` - Date library was last updated in the repo. This will be added whenever a library is
+   updated. To have complete data for this field will require waiting for all libraries to be updated, or
+   will require some detective work into the archives.
 
 ## Migration plan
 
 - [x] rename `processing/processing-contributions` to `processing/processing-contributions-legacy`.
-- [ ] Copy `mingness/processing-contributions-new` to `processing` account as `processing/processing-contributions`. 
+- [x] Copy `mingness/processing-contributions-new` to `processing` account as `processing/processing-contributions`. 
 Do not transfer. Do not keep history. Do not include the output files.
-- [ ] Set up update workflow that updates daily the database file, and automerges into the repository. 
+- [x] Set up update workflow that updates daily the database file, and automerges into the repository. 
 Direct commits to main. Also creates `pde/contribs.txt` and the  `source` json files as workflow artifacts.
-- [ ] Let the repository update these output files for a trial period of a week? a 
-month? Compare files against the `processing/processing-contributions` repo.
+- [x] Let the repository update these output files for a trial period of a week? a 
+month? 
+- [ ] Compare files against the `processing/processing-contributions` repo.
 - [ ] When we are confident the repository is working as expected, insert into workflow for 
 contribution manager. Start up again for website?
 
