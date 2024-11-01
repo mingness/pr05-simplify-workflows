@@ -182,10 +182,10 @@ The fields from the `library.properties` file are: `name`, `version`, `prettyVer
    `maxRevision` to `228`. This cap can be applied by setting `override` to {`maxRevision`: `228`}
    * `log` - Any notes of explanation, such as why a library was labeled `BROKEN`
 * Other fields to be included are
-   * `previous_versions` - a list of previous `prettyVersion` values. This is a future facing field.
-   * `date_added` - Date library was added to contributions. This will be added whenever a new library is
+   * `previousVersions` - a list of previous `prettyVersion` values. This is a future facing field.
+   * `dateAdded` - Date library was added to contributions. This will be added whenever a new library is
    added. To have complete data for this field will require some detective work into the archives.
-   * `last_updated` - Date library was last updated in the repo. This will be added whenever a library is
+   * `lastUpdated` - Date library was last updated in the repo. This will be added whenever a library is
    updated. To have complete data for this field will require waiting for all libraries to be updated, or
    will require some detective work into the archives.
 
@@ -198,7 +198,7 @@ Do not transfer. Do not keep history. Do not include the output files.
 Direct commits to main. Also creates `pde/contribs.txt` and the  `source` json files as workflow artifacts.
 - [x] Let the repository update these output files for a trial period of a week? a 
 month? 
-- [ ] Compare files against the `processing/processing-contributions` repo.
+- [ ] Compare files against the `processing/processing-contributions-legacy` repo.
 - [ ] When we are confident the repository is working as expected, insert into workflow for 
 contribution manager. Start up again for website?
 
